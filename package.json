@@ -1,6 +1,6 @@
 {
   "name": "@skillgate/openclaw-skillgate",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Supply-chain governance plugin for OpenClaw - scan, assess, and quarantine risky skills",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -24,12 +24,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/skillgate/openclaw-skillgate.git"
+    "url": "https://github.com/skillgatesecurity/openclaw-skillgate.git"
   },
   "bugs": {
-    "url": "https://github.com/skillgate/openclaw-skillgate/issues"
+    "url": "https://github.com/skillgatesecurity/openclaw-skillgate/issues"
   },
-  "homepage": "https://github.com/skillgate/openclaw-skillgate#readme",
+  "homepage": "https://github.com/skillgatesecurity/openclaw-skillgate#readme",
   "engines": {
     "node": ">=18.0.0"
   },
