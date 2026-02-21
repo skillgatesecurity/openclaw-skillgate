@@ -3,9 +3,8 @@
  */
 
 import { readFile } from 'node:fs/promises';
-import { join, relative, extname } from 'node:path';
+import { relative, extname } from 'node:path';
 import fg from 'fast-glob';
-import YAML from 'yaml';
 import { DiscoveredSkill } from './discover.js';
 
 export type Severity = 'CRITICAL' | 'HIGH' | 'MEDIUM' | 'LOW' | 'INFO';
@@ -75,7 +74,7 @@ const DEFAULT_RULES: Rule[] = [
   {
     id: 'download-execute',
     severity: 'HIGH',
-    pattern: /(download|fetch|request)\s*\([^\)]*\)\s*\.\s*then\s*\([^\)]*\)\s*\.\s*(exec|spawn|eval)/gi,
+    pattern: /(download|fetch|request)\s*\([^)]*\)\s*\.\s*then\s*\([^)]*\)\s*\.\s*(exec|spawn|eval)/gi,
     description: 'Download and execute pattern',
   },
   {
@@ -202,7 +201,6 @@ async function scanFile(filepath: string, skillPath: string): Promise<Finding[]>
 
   try {
     const content = await readFile(filepath, 'utf-8');
-    const lines = content.split('\n');
     const relPath = relative(skillPath, filepath);
 
     for (const rule of DEFAULT_RULES) {

@@ -5,9 +5,8 @@
 import { findSkillByKey } from '../core/discover.js';
 import { scanSkill } from '../core/scan.js';
 import { assessRisk, formatAssessment } from '../core/decision.js';
-import { findEvidenceForSkill, formatEvidence } from '../core/evidence.js';
+import { findEvidenceForSkill } from '../core/evidence.js';
 import { isQuarantined, isAllowlisted, getSkillStatus } from '../core/actions.js';
-import { getRules } from '../core/scan.js';
 
 export interface GovExplainResult {
   skillKey: string;

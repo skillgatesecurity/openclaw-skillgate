@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     tags:
-      - 'v*'
+      - 'v[0-9]+.[0-9]+.[0-9]+' # Only semantic versioning tags
 
 jobs:
   release:
@@ -15,6 +15,20 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Need full history for branch check
+
+      - name: Verify tag is on main branch
+        run: |
+          git fetch origin main --depth=1
+          TAG_COMMIT=$(git rev-list -n 1 "$GITHUB_REF_NAME")
+          MAIN_HAS=$(git branch -r --contains "$TAG_COMMIT" | grep -c "origin/main" || true)
+          if [ "$MAIN_HAS" -eq 0 ]; then
+            echo "::error::Tag commit $TAG_COMMIT is not on origin/main. Refusing to publish."
+            echo "This prevents accidental releases from feature branches."
+            exit 1
+          fi
+          echo "✓ Tag commit verified on origin/main"
 
       - name: Use Node.js
         uses: actions/setup-node@v4

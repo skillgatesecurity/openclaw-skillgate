@@ -2,10 +2,8 @@
  * Three-layer skill discovery: workspace, managed, extraDirs
  */
 
-import { readdir, stat, readFile } from 'node:fs/promises';
+import { readdir, readFile } from 'node:fs/promises';
 import { join, basename } from 'node:path';
-import { homedir } from 'node:os';
-import fg from 'fast-glob';
 import JSON5 from 'json5';
 import { expandPath, readJson5Config, OPENCLAW_CONFIG_PATH } from './utils.js';
 

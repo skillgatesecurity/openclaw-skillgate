@@ -2,7 +2,7 @@
  * /gov restore command - Restore a quarantined skill
  */
 
-import { isQuarantined, restoreSkill, RestoreResult } from '../core/actions.js';
+import { isQuarantined, restoreSkill } from '../core/actions.js';
 import { requireAuthWithTest } from '../core/authz.js';
 import { loadEvidence } from '../core/evidence.js';
 

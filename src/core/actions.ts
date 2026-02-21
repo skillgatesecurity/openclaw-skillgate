@@ -2,14 +2,12 @@
  * Governance actions: quarantine, restore, disable, allow
  */
 
-import { mkdir, copyFile, readFile, writeFile } from 'node:fs/promises';
-import { join, dirname } from 'node:path';
-import JSON5 from 'json5';
+import { mkdir, copyFile } from 'node:fs/promises';
+import { join } from 'node:path';
 import { DiscoveredSkill } from './discover.js';
 import { Evidence } from './evidence.js';
 import {
   OPENCLAW_CONFIG_PATH,
-  EVIDENCE_DIR,
   expandPath,
   nowISO,
   atomicWriteJson,
@@ -176,7 +174,7 @@ export async function restoreSkill(skillKey: string): Promise<RestoreResult> {
  */
 export async function disableSkill(
   skill: DiscoveredSkill,
-  reason: string
+  _reason: string
 ): Promise<QuarantineResult> {
   try {
     const config = await loadOrCreateConfig();

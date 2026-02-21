@@ -4,9 +4,9 @@
 
 import { mkdir, writeFile, readFile, readdir } from 'node:fs/promises';
 import { join } from 'node:path';
-import { ScanResult, Finding } from './scan.js';
+import { ScanResult } from './scan.js';
 import { RiskAssessment } from './decision.js';
-import { redactSnippet, hashContent, RedactedContent } from './redaction.js';
+import { redactSnippet } from './redaction.js';
 import { EVIDENCE_DIR, generateEvidenceId, nowISO } from './utils.js';
 
 export interface Evidence {

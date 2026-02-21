@@ -6,7 +6,7 @@ import { findSkillByKey } from '../core/discover.js';
 import { scanSkill } from '../core/scan.js';
 import { assessRisk } from '../core/decision.js';
 import { generateEvidence, saveEvidence } from '../core/evidence.js';
-import { quarantineSkill, isQuarantined, QuarantineResult } from '../core/actions.js';
+import { quarantineSkill, isQuarantined } from '../core/actions.js';
 import { requireAuthWithTest } from '../core/authz.js';
 
 export interface GovQuarantineResult {

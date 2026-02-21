@@ -2,9 +2,9 @@
  * /gov scan command - Scan skills for security risks
  */
 
-import { discoverSkills, DiscoveredSkill } from '../core/discover.js';
-import { scanSkill, ScanResult, Finding, Severity } from '../core/scan.js';
-import { assessRisk, RiskAssessment, shouldAutoQuarantine, shouldAutoDisable } from '../core/decision.js';
+import { discoverSkills } from '../core/discover.js';
+import { scanSkill } from '../core/scan.js';
+import { assessRisk, shouldAutoQuarantine, shouldAutoDisable } from '../core/decision.js';
 import { generateEvidence, saveEvidence, Evidence } from '../core/evidence.js';
 import { quarantineSkill, disableSkill, isAllowlisted } from '../core/actions.js';
 import { requireAuthWithTest } from '../core/authz.js';

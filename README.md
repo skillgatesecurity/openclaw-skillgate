@@ -2,20 +2,45 @@
 
 Supply-chain governance plugin for OpenClaw — scan, assess, and quarantine risky skills.
 
-## 30-Second Quick Start
+[![npm version](https://img.shields.io/npm/v/@skillgate/openclaw-skillgate.svg)](https://www.npmjs.com/package/@skillgate/openclaw-skillgate)
+[![CI](https://github.com/skillgatesecurity/openclaw-skillgate/actions/workflows/ci.yml/badge.svg)](https://github.com/skillgatesecurity/openclaw-skillgate/actions/workflows/ci.yml)
+
+## Quick Start (60 seconds)
 
 ```bash
 # Install
-npm install @skillgate/openclaw-skillgate@0.1.0
+npm install @skillgate/openclaw-skillgate
 
 # Scan all skills for HIGH+ risks
 /gov scan
+```
 
-# Quarantine a risky skill
-/gov quarantine some-risky-skill
+**Sample output:**
+```
+📋 SkillGate Scan Results
+──────────────────────────────────────────────────
+Skills: 3 scanned, 0 skipped (allowlisted)
 
-# Restore if needed
-/gov restore some-risky-skill
+🔴 untrusted-plugin [managed]
+   Risk: CRITICAL (score: 180)
+   Findings: 4 total (2 CRITICAL, 1 HIGH)
+   Evidence: ev-a1b2c3d4
+
+🟡 dev-helper [workspace]
+   Risk: MEDIUM (score: 25)
+   Findings: 2 total (0 CRITICAL, 0 HIGH)
+   Evidence: ev-e5f6g7h8
+```
+
+```bash
+# Quarantine a risky skill (creates backup + disables)
+/gov quarantine untrusted-plugin
+
+# Check why a skill was flagged
+/gov explain untrusted-plugin
+
+# Restore if you trust it
+/gov restore untrusted-plugin
 ```
 
 ## Features
@@ -48,6 +73,12 @@ npm install @skillgate/openclaw-skillgate@0.1.0
 | HIGH | Disable | Dangerous patterns, external downloads |
 | MEDIUM | Warn | Risky but not immediately dangerous |
 | LOW/INFO | Log | Informational only |
+
+## Documentation
+
+- [Demo & Examples](docs/demo.md) — Detailed walkthrough with sample outputs
+- [Security Policy](SECURITY.md) — Vulnerability reporting & design principles
+- [Changelog](CHANGELOG.md) — Version history
 
 ## Configuration
 
