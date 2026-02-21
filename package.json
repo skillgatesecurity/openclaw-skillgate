@@ -1,6 +1,6 @@
 {
   "name": "@skillgate/openclaw-skillgate",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Supply-chain governance plugin for OpenClaw - scan, assess, and quarantine risky skills",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
