@@ -1,0 +1,55 @@
+{
+  "name": "skillgate",
+  "version": "0.1.0",
+  "displayName": "SkillGate",
+  "description": "Supply-chain governance for OpenClaw skills - scan, assess, and quarantine risky skills",
+  "author": "SkillGate Contributors",
+  "license": "MIT",
+  "homepage": "https://github.com/skillgate/openclaw-skillgate",
+  "keywords": ["governance", "security", "supply-chain"],
+  "commands": {
+    "gov scan": {
+      "description": "Scan skills for security risks (default: HIGH+)",
+      "usage": "/gov scan [--all] [--json]",
+      "examples": [
+        "/gov scan",
+        "/gov scan --all",
+        "/gov scan --json"
+      ]
+    },
+    "gov quarantine": {
+      "description": "Quarantine a risky skill (backup + disable)",
+      "usage": "/gov quarantine <skillKey>",
+      "requiresAuth": true
+    },
+    "gov restore": {
+      "description": "Restore a quarantined skill",
+      "usage": "/gov restore <skillKey>",
+      "requiresAuth": true
+    },
+    "gov allow": {
+      "description": "Allowlist a skill (bypass future scans)",
+      "usage": "/gov allow <skillKey>",
+      "requiresAuth": true
+    },
+    "gov explain": {
+      "description": "Explain why a skill was flagged",
+      "usage": "/gov explain <skillKey>"
+    },
+    "gov status": {
+      "description": "Show governance status for all skills",
+      "usage": "/gov status"
+    }
+  },
+  "hooks": {
+    "onSkillInstall": {
+      "description": "Auto-scan skills on install",
+      "handler": "dist/hooks/onSkillInstall.js"
+    }
+  },
+  "config": {
+    "configPath": "~/.openclaw/openclaw.json",
+    "evidencePath": "~/.openclaw/evidence/",
+    "defaultStrategy": "conservative"
+  }
+}

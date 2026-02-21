@@ -1,0 +1,112 @@
+# SkillGate Default Rules
+# Each rule defines a pattern to match and its severity
+
+version: "1.0"
+
+rules:
+  # CRITICAL - Immediate threats
+  - id: curl-pipe-bash
+    severity: CRITICAL
+    pattern: 'curl\s+[^\n]*\|\s*(bash|sh|zsh)'
+    description: Remote code execution via curl pipe to shell
+    category: supply-chain
+
+  - id: wget-pipe-bash
+    severity: CRITICAL
+    pattern: 'wget\s+[^\n]*\|\s*(bash|sh|zsh)'
+    description: Remote code execution via wget pipe to shell
+    category: supply-chain
+
+  - id: base64-pipe-bash
+    severity: CRITICAL
+    pattern: 'base64\s+(-d|--decode)[^\n]*\|\s*(bash|sh|zsh)'
+    description: Obfuscated code execution via base64 decode
+    category: obfuscation
+
+  - id: rm-rf-root
+    severity: CRITICAL
+    pattern: 'rm\s+-rf\s+(\/|~\/|\$HOME)'
+    description: Destructive command targeting root or home directory
+    category: destructive
+
+  - id: eval-remote
+    severity: CRITICAL
+    pattern: 'eval\s*\(\s*(fetch|axios|http|request)\s*\('
+    description: Eval of remotely fetched content
+    category: remote-code-execution
+
+  # HIGH - Dangerous patterns
+  - id: download-execute
+    severity: HIGH
+    pattern: '(download|fetch|request)\s*\([^\)]*\)\s*\.\s*then\s*\([^\)]*\)\s*\.\s*(exec|spawn|eval)'
+    description: Download and execute pattern
+    category: supply-chain
+
+  - id: env-exfiltration
+    severity: HIGH
+    pattern: 'process\.env\s*\[?\s*[''"][^''"]+[''"][^\n]*(fetch|axios|http|request)'
+    description: Potential environment variable exfiltration
+    category: data-exfiltration
+
+  - id: hardcoded-token
+    severity: HIGH
+    pattern: '(api[_-]?key|secret|token|password)\s*[:=]\s*[''"][A-Za-z0-9]{20,}[''"']'
+    description: Hardcoded secret or API key
+    category: credentials
+
+  - id: shell-spawn-untrusted
+    severity: HIGH
+    pattern: '(exec|spawn|execSync|spawnSync)\s*\(\s*[`''"]?\s*\$\{'
+    description: Shell command with template literal (potential injection)
+    category: injection
+
+  - id: install-download
+    severity: HIGH
+    pattern: '"install"\s*:\s*["''].*\b(curl|wget|download|fetch)\b'
+    description: Install hook downloads external content
+    category: supply-chain
+    fileTypes: [".json"]
+
+  # MEDIUM - Risky patterns
+  - id: dynamic-require
+    severity: MEDIUM
+    pattern: 'require\s*\(\s*[^''"]'
+    description: Dynamic require with non-literal argument
+    category: dynamic-loading
+
+  - id: fs-write-root
+    severity: MEDIUM
+    pattern: 'writeFile(Sync)?\s*\(\s*[''"]\/(?!tmp)'
+    description: File write to root filesystem
+    category: filesystem
+
+  - id: network-listener
+    severity: MEDIUM
+    pattern: '\.(listen|createServer)\s*\('
+    description: Creates network listener
+    category: network
+
+  - id: obfuscated-code
+    severity: MEDIUM
+    pattern: '\\x[0-9a-f]{2}.*\\x[0-9a-f]{2}.*\\x[0-9a-f]{2}'
+    description: Potentially obfuscated code (hex escapes)
+    category: obfuscation
+
+  # LOW - Informational
+  - id: shell-exec
+    severity: LOW
+    pattern: '(exec|spawn|execSync|spawnSync|child_process)'
+    description: Uses shell execution
+    category: shell
+
+  - id: network-request
+    severity: LOW
+    pattern: '(fetch|axios|request|http\.get|https\.get)'
+    description: Makes network requests
+    category: network
+
+  - id: file-system-access
+    severity: LOW
+    pattern: '(readFile|writeFile|readdir|mkdir|unlink|rmdir)'
+    description: Accesses file system
+    category: filesystem

@@ -1,0 +1,50 @@
+# SkillGate Combo Definitions
+# Combinations of rules that indicate higher risk
+
+version: "1.0"
+
+combos:
+  - name: supply-chain-attack
+    description: Download + execute pattern detected
+    rules:
+      - curl-pipe-bash
+      - wget-pipe-bash
+      - download-execute
+    minMatches: 1
+    scoreBonus: 100
+
+  - name: obfuscated-execution
+    description: Obfuscated code with shell execution
+    rules:
+      - obfuscated-code
+      - shell-exec
+      - base64-pipe-bash
+    minMatches: 2
+    scoreBonus: 80
+
+  - name: credential-theft
+    description: Credential access with network exfiltration
+    rules:
+      - hardcoded-token
+      - env-exfiltration
+      - network-request
+    minMatches: 2
+    scoreBonus: 70
+
+  - name: destructive-payload
+    description: Destructive commands in install hook
+    rules:
+      - rm-rf-root
+      - install-download
+      - metadata-install-download
+    minMatches: 1
+    scoreBonus: 100
+
+  - name: install-hook-risky
+    description: Install hook with shell/network access
+    rules:
+      - install-download
+      - metadata-install-download
+      - shell-exec
+    minMatches: 2
+    scoreBonus: 40

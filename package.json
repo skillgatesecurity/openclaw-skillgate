@@ -1,0 +1,53 @@
+{
+  "name": "@skillgate/openclaw-skillgate",
+  "version": "0.1.0",
+  "description": "Supply-chain governance plugin for OpenClaw - scan, assess, and quarantine risky skills",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint src/**/*.ts",
+    "prepublishOnly": "npm run build && npm test"
+  },
+  "keywords": [
+    "openclaw",
+    "plugin",
+    "governance",
+    "security",
+    "supply-chain",
+    "skill-management"
+  ],
+  "author": "SkillGate Contributors",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/skillgate/openclaw-skillgate.git"
+  },
+  "bugs": {
+    "url": "https://github.com/skillgate/openclaw-skillgate/issues"
+  },
+  "homepage": "https://github.com/skillgate/openclaw-skillgate#readme",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    "dist",
+    "src/rules"
+  ],
+  "dependencies": {
+    "json5": "^2.2.3",
+    "yaml": "^2.3.4",
+    "fast-glob": "^3.3.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "typescript": "^5.3.0",
+    "vitest": "^1.0.0",
+    "eslint": "^8.55.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.0",
+    "@typescript-eslint/parser": "^6.13.0"
+  }
+}

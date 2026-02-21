@@ -1,0 +1,8 @@
+{
+  "name": "directory-name-skill",
+  "version": "1.0.0",
+  "description": "A skill where the openclaw.skillKey differs from directory name",
+  "openclaw": {
+    "skillKey": "canonical-skill-key"
+  }
+}
