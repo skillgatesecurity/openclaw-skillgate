@@ -130,3 +130,49 @@ Evidence packages are stored in `~/.openclaw/evidence/`:
 ```
 
 Use `/gov explain <skillKey>` to view evidence history.
+
+---
+
+## Release Gate Verification
+
+SkillGate's release workflow includes fail-closed gates to prevent accidental or malicious publishes.
+
+### Gate 1: Tag Format
+
+**Rule**: Only tags matching `v*.*.*` (semantic versioning) trigger releases.
+
+| Tag | Result |
+|-----|--------|
+| `v0.1.2` | ✅ Workflow triggered |
+| `badtag-0.0.0` | ❌ Workflow NOT triggered (tag pattern mismatch) |
+| `release-1.0` | ❌ Workflow NOT triggered |
+
+**Verified**: 2026-02-21 — `badtag-0.0.0` was pushed and NO Release workflow ran.
+
+### Gate 2: Commit Must Be on Main
+
+**Rule**: The tagged commit must exist on `origin/main`. Tags on feature branches are rejected.
+
+**Test case**: Created `chore/gate-drill` branch with a new commit, tagged as `v9.9.9`.
+
+**Result**: Workflow failed with:
+```
+##[error] Tag commit 81ca9b2... is not on origin/main. Refusing to publish.
+This prevents accidental releases from feature branches.
+```
+
+**Verified**: 2026-02-21 — [Actions run #22258640370](https://github.com/skillgatesecurity/openclaw-skillgate/actions/runs/22258640370) failed as expected.
+
+### Why These Gates Matter
+
+| Attack Vector | Gate | Protection |
+|---------------|------|------------|
+| Typosquatting tags | Format check | Only `v*.*.*` triggers publish |
+| Feature branch leak | Main check | Only `main` commits can be released |
+| Compromised dev machine | Both | Attacker must also merge to main |
+
+### Fail-Closed Design
+
+- Gates run BEFORE `npm install` or `npm publish`
+- Failure at any gate = workflow exits with error
+- No partial publishes possible
