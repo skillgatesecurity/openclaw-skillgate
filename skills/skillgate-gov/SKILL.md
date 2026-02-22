@@ -1,7 +1,7 @@
 ---
 name: skillgate-gov
 description: "Supply-chain governance for OpenClaw skills: scan, assess, quarantine/restore."
-metadata: { "openclaw": { "emoji": "🛡️", "requires": { "bins": ["node", "npm"] } } }
+metadata: { "openclaw": { "emoji": "🛡️", "requires": { "bins": ["node", "npm"] }, "homepage": "https://github.com/skillgatesecurity/openclaw-skillgate" } }
 ---
 
 # SkillGate (Governance)
